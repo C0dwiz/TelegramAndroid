@@ -8016,4 +8016,6 @@
     <string name="BoostReasonGiveaway">Giveaway</string>
     <string name="BoostDate">Date</string>
     <string name="BoostUntil">Until</string>
+    <!--FORK CLIENT-->
+    <string name="BottomDialogs">Tap here to start a new chat.</string>
 </resources>
