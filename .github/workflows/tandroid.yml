@@ -74,6 +74,7 @@ jobs:
           tempVer=$(cat ver.txt)
           tempVer=${tempVer::-2}
           echo "NEW_OFFICIAL_TAG_TEXT=$tempVer" >> $GITHUB_ENV
+
       - name: Draft release.
         uses: softprops/action-gh-release@v0.1.15
         if: ${{ matrix.type == 'debug' }}
