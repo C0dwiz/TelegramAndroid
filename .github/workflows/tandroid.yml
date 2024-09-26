@@ -49,18 +49,14 @@ jobs:
           echo "org.gradle.workers.max=1" >> $vars
           echo "APP_ID=${{ secrets.APP_ID }}" >> $vars
           echo "APP_HASH=${{ secrets.APP_HASH }}" >> $vars
-          echo "RELEASE_KEY_PASSWORD=${{ secrets.ALIAS_PASS }}" >> $vars
-          echo "RELEASE_KEY_ALIAS=${{ secrets.ALIAS_NAME }}" >> $vars
-          echo "RELEASE_STORE_PASSWORD=${{ secrets.KEYSTORE_PASS }}" >> $vars
           echo "ADDITIONAL_BUILD_NUMBER=$ADDITIONAL_BUILD_NUMBER" >> $vars
           echo "USER_REPO=$USER_REPO" >> $vars
           echo "CHECK_UPDATES=${{ matrix.updates }}" >> $vars
-          echo "USER_ID_OWNER=${{ secrets.USER_ID_OWNER }}" >> $vars
 
           ###
           echo $ADDITIONAL_BUILD_NUMBER
           sudo apt update
-          sudo apt -y install ninja-build unzip pip
+          sudo apt -y install ninja-build
           ./gradlew :TMessagesProj_App:${{ matrix.afat }}
 
           #grep BUILD_VERSION_STRING TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java | cut -d'"' -f 2 > ver.txt
@@ -72,17 +68,6 @@ jobs:
           mkdir tag_asset
           cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
 
-          # Upload to channel.
-          set +x
-          pip install tgcrypto
-          pip install https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip --force-reinstall
-          cp app.apk "ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
-          echo "${{ secrets.BASE64_ZIP }}" | base64 --decode > output.zip
-          unzip -j output.zip -d .
-          ls
-          python3 upload.py
-          set -x
-          ###
 
           echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
 
