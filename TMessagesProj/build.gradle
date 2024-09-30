@@ -84,11 +84,12 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-        defaultConfig.versionCode = Utils['getVersionCode']()
-
+        
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 34
+        versionCode = getVersionCode()
+        versionName = getVersionName()
 
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 
@@ -103,7 +104,6 @@ android {
 
         vectorDrawables.generatedDensities = ['mdpi', 'hdpi', 'xhdpi', 'xxhdpi']
 
-        versionName = Utils['getVersionName']()
         buildConfigField 'int', 'ADDITIONAL_BUILD_NUMBER', ADDITIONAL_BUILD_NUMBER
         buildConfigField 'String', 'VERSION_NAME', getStringForConfig(versionName)
         buildConfigField 'int', 'VERSION_CODE', Utils['getVersionCode']()
