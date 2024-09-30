@@ -65,17 +65,23 @@ jobs:
           #grep BUILD_VERSION_STRING TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java | cut -d'"' -f 2 > ver.txt
           grep VERSION_NAME TMessagesProj/build/generated/source/buildConfig/${{ matrix.type }}/org/telegram/messenger/BuildConfig.java | cut -d'"' -f 2 > ver.txt
 
-          mkdir artifact
-          mv TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/app.apk app.apk
-          cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
-          mkdir tag_asset
-          cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
+          APK_PATH="TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/app-afat-${{ matrix.type }}.apk"
+          if [ -f "$APK_PATH" ]; then
+            mkdir -p artifact tag_asset
+            mv "$APK_PATH" app.apk
+            cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
+            cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
 
-          echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
+            echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
 
-          tempVer=$(cat ver.txt)
-          tempVer=${tempVer::-2}
-          echo "NEW_OFFICIAL_TAG_TEXT=$tempVer" >> $GITHUB_ENV
+            tempVer=$(cat ver.txt)
+            tempVer=${tempVer::-2}
+            echo "NEW_OFFICIAL_TAG_TEXT=$tempVer" >> $GITHUB_ENV
+          else
+            echo "APK file not found at $APK_PATH"
+            exit 1
+      - name: Find APK files
+        run: find TMessagesProj_App/build/outputs/apk -name "*.apk"
       - name: Draft release.
         uses: softprops/action-gh-release@v0.1.15
         if: ${{ matrix.type == 'debug' }}
@@ -87,7 +93,7 @@ jobs:
           tag_name: ${{ env.NEW_TAG_TEXT }}
           name: "ForkClient ${{ env.NEW_TAG_TEXT }}"
           body: "— Updated to ${{ env.NEW_OFFICIAL_TAG_TEXT }} build of the official Telegram."
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v2
         name: Upload artifact.
         with:
           name: ForkClient-${{ matrix.type }}
