@@ -169,24 +169,7 @@ android {
                 abiVersionCode = 9
             }
         }
-//
-        afatFd_v7a {
-            ndk {
-                abiFilters "armeabi-v7a"
-            }
-            sourceSets.debug {
-                manifest.srcFile '../TMessagesProj/config/debug/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.release {
-                manifest.srcFile '../TMessagesProj/config/' + flavorsConfig + '/AndroidManifest_SDK23.xml'
-            }
-            sourceSets.standalone {
-                manifest.srcFile '../TMessagesProj/config/' + flavorsConfig + '/AndroidManifest_standalone.xml'
-            }
-            ext {
-                abiVersionCode = 7
-            }
-        }
+
         afatFd_v8a {
             ndk {
                 abiFilters "arm64-v8a"
@@ -204,9 +187,8 @@ android {
                 abiVersionCode = 8
             }
         }
-//
     }
-}
+
 
     defaultConfig.versionCode = Integer.parseInt(Utils['getVersionCode']())
 
