@@ -113,7 +113,7 @@ android {
         externalNativeBuild {
             cmake {
                 version '3.10.2'
-                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-16'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-21'
                 if (project.hasProperty("armeabi-v7a")) {
                     abiFilters 'armeabi-v7a'
                 } else if (project.hasProperty("arm64-v8a")) {
