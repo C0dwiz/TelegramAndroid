@@ -72,7 +72,7 @@ jobs:
 
       - name: Check and Move APK
         run: |
-          APK_PATH="TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/app-afat-${{ matrix.type }}.apk"
+          APK_PATH="TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/TMessagesProj_App-afat-${{ matrix.type }}.apk"
           echo "Looking for APK at $APK_PATH"
         
           echo "APK found at $APK_PATH"
