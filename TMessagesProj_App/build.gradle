@@ -206,6 +206,7 @@ android {
         }
 //
     }
+}
 
     defaultConfig.versionCode = Integer.parseInt(Utils['getVersionCode']())
 
