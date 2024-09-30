@@ -74,21 +74,18 @@ jobs:
         run: |
           APK_PATH="TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/app-afat-${{ matrix.type }}.apk"
           echo "Looking for APK at $APK_PATH"
-          if [ -f "$APK_PATH" ]; then
-            echo "APK found at $APK_PATH"
-            mkdir -p artifact tag_asset
-            mv "$APK_PATH" app.apk
-            cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
-            cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
+        
+          echo "APK found at $APK_PATH"
+          mkdir -p artifact tag_asset
+          mv "$APK_PATH" app.apk
+          cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
+          cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
 
-            echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
+          echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
 
-            tempVer=$(cat ver.txt)
-            tempVer=${tempVer::-2}
-            echo "NEW_OFFICIAL_TAG_TEXT=$tempVer" >> $GITHUB_ENV
-          else
-            echo "APK file not found at $APK_PATH"
-            exit 1
+          tempVer=$(cat ver.txt)
+          tempVer=${tempVer::-2}
+          echo "NEW_OFFICIAL_TAG_TEXT=$tempVer" >> $GITHUB_ENV
 
       - name: Draft release.
         uses: softprops/action-gh-release@v0.1.15
