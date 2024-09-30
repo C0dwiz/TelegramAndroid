@@ -102,7 +102,7 @@ jobs:
           name: "ForkClient ${{ env.NEW_TAG_TEXT }}"
           body: "— Updated to ${{ env.NEW_OFFICIAL_TAG_TEXT }} build of the official Telegram."
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@master
         name: Upload artifact.
         with:
           name: ForkClient-${{ matrix.type }}
