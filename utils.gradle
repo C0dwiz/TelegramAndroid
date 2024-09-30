@@ -4,5 +4,5 @@ def getVersionName = {
 }
 
 def getVersionCode = {
-    return (APP_VERSION_CODE.toInteger() * 10 + ADDITIONAL_BUILD_NUMBER.toInteger()) + ""
+    return 10
 }
