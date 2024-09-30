@@ -41,42 +41,25 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-    def fdroid = Utils['isFdroid']()
-    def appSuffix = fdroid ? "" : ".beta"
-    def flavorsConfig = fdroid ? "config/release" : "config/debug"
+    def appSuffix = ".beta"
+    def flavorsConfig = "config/release" : "config/debug"
     if (fdroid) {
         defaultConfig.applicationId = "org.forkgram.messenger"
     }
 
     signingConfigs {
-        if (fdroid) {
-            debug {
-                storeFile file("")
-                storePassword ""
-                keyAlias ""
-                keyPassword ""
-            }
+        debug {
+            storeFile file("../TMessagesProj/config/release.keystore")
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
 
-            release {
-                storeFile file("")
-                storePassword ""
-                keyAlias ""
-                keyPassword ""
-            }
-        } else {
-            debug {
-                storeFile file("../TMessagesProj/config/release.keystore")
-                storePassword RELEASE_STORE_PASSWORD
-                keyAlias RELEASE_KEY_ALIAS
-                keyPassword RELEASE_KEY_PASSWORD
-            }
-
-            release {
-                storeFile file("../TMessagesProj/config/release.keystore")
-                storePassword RELEASE_STORE_PASSWORD
-                keyAlias RELEASE_KEY_ALIAS
-                keyPassword RELEASE_KEY_PASSWORD
-            }
+        release {
+            storeFile file("../TMessagesProj/config/release.keystore")
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
         }
     }
 
