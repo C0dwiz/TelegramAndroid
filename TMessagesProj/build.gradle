@@ -84,7 +84,7 @@ android {
         coreLibraryDesugaringEnabled true
     }
 
-    defaultConfig.versionCode = Integer.parseInt(Utils['getVersionCode']())
+    defaultConfig.versionCode = 10
 
     defaultConfig {
         minSdkVersion 19
