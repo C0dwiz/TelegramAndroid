@@ -43,9 +43,8 @@ android {
 
     def appSuffix = ".beta"
     def flavorsConfig = "config/release" : "config/debug"
-    if (fdroid) {
-        defaultConfig.applicationId = "org.forkgram.messenger"
-    }
+    defaultConfig.applicationId = "org.forkgram.messenger"
+    
 
     signingConfigs {
         debug {
