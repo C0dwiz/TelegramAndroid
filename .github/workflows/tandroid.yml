@@ -60,13 +60,13 @@ jobs:
           echo $ADDITIONAL_BUILD_NUMBER
           sudo apt update
           sudo apt -y install ninja-build unzip pip
-          ./gradlew :TMessagesProj:${{ matrix.afat }}
+          ./gradlew :TMessagesProj_App:${{ matrix.afat }}
 
           #grep BUILD_VERSION_STRING TMessagesProj/src/main/java/org/telegram/messenger/BuildVars.java | cut -d'"' -f 2 > ver.txt
           grep VERSION_NAME TMessagesProj/build/generated/source/buildConfig/${{ matrix.type }}/org/telegram/messenger/BuildConfig.java | cut -d'"' -f 2 > ver.txt
 
           mkdir artifact
-          mv TMessagesProj/build/outputs/apk/afat/${{ matrix.type }}/app.apk app.apk
+          mv TMessagesProj_App/build/outputs/apk/afat/${{ matrix.type }}/app.apk app.apk
           cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
           mkdir tag_asset
           cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
