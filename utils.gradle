@@ -1,8 +1,11 @@
 
-def getVersionName = {
-    return APP_VERSION_NAME + "." + ADDITIONAL_BUILD_NUMBER
-}
-
-def getVersionCode = {
-    return 10
+ext {
+    Utils = [
+        getVersionName: {
+            return APP_VERSION_NAME + "." + ADDITIONAL_BUILD_NUMBER
+        },
+        getVersionCode: {
+            return 10
+        }
+    ]
 }
