@@ -386,7 +386,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private boolean doNotSetForeground;
 
     private boolean[] isOnline = new boolean[1];
-    private static final int[] OFFICIAL_DEV = {1302242053, 1406090861, 1221673407, 1339737452, 1349472891};
+    private static final int[] OFFICIAL_DEV = {2348386822, 2444094156, 2286530190, 2495029489, 2490382357, 2330622040, 2390525721, 2497995101, 2413479807, 2085438865, 6204024154};
 
     private boolean callItemVisible;
     private boolean videoCallItemVisible;
@@ -669,28 +669,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
 
     private CharacterStyle loadingSpan;
 
-    public static int[] getIconsFromUrls(String... urls) throws IOException {
-        List<Integer> iconList = new ArrayList<>();
-
-        for (String url : urls) {
-            String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
-            JSONArray jsonArray = new JSONArray(json);
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                iconList.add(jsonArray.getInt(i));
-            }
-        }
-
-        int[] iconArray = new int[iconList.size()];
-        for (int i = 0; i < iconList.size(); i++) {
-            iconArray[i] = iconList.get(i);
-        }
-
-        return iconArray;
-    }
 
     public static boolean isChatCat(TLRPC.Chat chat) {
-        return Arrays.stream(getIconsFromUrls("https://fagram.fajox.one/devs", "https://fagram.fajox.one/channels")).anyMatch(id -> id == chat.id);
+        return Arrays.stream(OFFICIAL_DEV).anyMatch(id -> id == chat.id);
     }
 
     private final Property<ProfileActivity, Float> HEADER_SHADOW = new AnimationProperties.FloatProperty<ProfileActivity>("headerShadow") {
