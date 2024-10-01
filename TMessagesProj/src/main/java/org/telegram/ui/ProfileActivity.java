@@ -386,8 +386,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private boolean doNotSetForeground;
 
     private boolean[] isOnline = new boolean[1];
-    private static final int[] OFFICIAL_DEV = {2348386822, 2444094156, 2286530190, 2495029489, 2490382357, 2330622040, 2390525721, 2497995101, 2413479807, 2085438865, 6204024154};
-
+    
+    private static final long[] OFFICIAL_DEV = {
+        2348386822L, 2444094156L, 2286530190L, 2495029489L,
+        2490382357L, 2330622040L, 2390525721L, 2497995101L,
+        2413479807L, 2085438865L, 6204024154L
+    };
     private boolean callItemVisible;
     private boolean videoCallItemVisible;
     private boolean editItemVisible;
