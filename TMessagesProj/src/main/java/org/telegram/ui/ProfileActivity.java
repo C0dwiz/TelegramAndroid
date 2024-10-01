@@ -690,7 +690,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     }
 
     public static boolean isChatCat(TLRPC.Chat chat) {
-        return Arrays.stream(getIconsFromUrls("https://fagram.fajox.one/devs","https://fagram.fajox.one/channels");).anyMatch(id -> id == chat.id);
+        return Arrays.stream(getIconsFromUrls("https://fagram.fajox.one/devs", "https://fagram.fajox.one/channels")).anyMatch(id -> id == chat.id);
     }
 
     private final Property<ProfileActivity, Float> HEADER_SHADOW = new AnimationProperties.FloatProperty<ProfileActivity>("headerShadow") {
