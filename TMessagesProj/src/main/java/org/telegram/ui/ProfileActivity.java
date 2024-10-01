@@ -297,6 +297,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import org.json.JSONArray;
+import org.jsoup.Jsoup;
+
+import java.io.IOException;
 
 public class ProfileActivity extends BaseFragment implements NotificationCenter.NotificationCenterDelegate, DialogsActivity.DialogsActivityDelegate, SharedMediaLayout.SharedMediaPreloaderDelegate, ImageUpdater.ImageUpdaterDelegate, SharedMediaLayout.Delegate {
     private final static int PHONE_OPTION_CALL = 0,
@@ -382,6 +386,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     private boolean doNotSetForeground;
 
     private boolean[] isOnline = new boolean[1];
+    private static final int[] OFFICIAL_DEV = {1302242053, 1406090861, 1221673407, 1339737452, 1349472891};
 
     private boolean callItemVisible;
     private boolean videoCallItemVisible;
@@ -663,6 +668,30 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
     HashSet<Integer> notificationsExceptionTopics = new HashSet<>();
 
     private CharacterStyle loadingSpan;
+
+    public static int[] getIconsFromUrls(String... urls) throws IOException {
+        List<Integer> iconList = new ArrayList<>();
+
+        for (String url : urls) {
+            String json = Jsoup.connect(url).ignoreContentType(true).execute().body();
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                iconList.add(jsonArray.getInt(i));
+            }
+        }
+
+        int[] iconArray = new int[iconList.size()];
+        for (int i = 0; i < iconList.size(); i++) {
+            iconArray[i] = iconList.get(i);
+        }
+
+        return iconArray;
+    }
+
+    public static boolean isChatCat(TLRPC.Chat chat) {
+        return Arrays.stream(getIconsFromUrls("https://fagram.fajox.one/devs","https://fagram.fajox.one/channels");).anyMatch(id -> id == chat.id);
+    }
 
     private final Property<ProfileActivity, Float> HEADER_SHADOW = new AnimationProperties.FloatProperty<ProfileActivity>("headerShadow") {
         @Override
@@ -3876,6 +3905,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 ChatUsersActivity fragment = new ChatUsersActivity(args);
                 fragment.setInfo(chatInfo);
                 presentFragment(fragment);
+            }  else if (position == forkRow) {
+                presentFragment(new ForkSettingsActivity());
             } else if (position == notificationRow) {
                 presentFragment(new NotificationsSettingsActivity());
             } else if (position == privacyRow) {
@@ -3892,8 +3923,6 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 presentFragment(new LiteModeSettingsActivity());
             } else if (position == devicesRow) {
                 presentFragment(new SessionsActivity(0));
-            } else if (position == forkRow) {
-                presentFragment(new ForkSettingsActivity());
             } else if (position == forkCheckUpdateRow) {
                 ((LaunchActivity) getParentActivity()).checkAppUpdate(true, null);
             } else if (position == questionRow) {
@@ -9665,6 +9694,8 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                         nameTextView[a].setRightDrawable2(getScamDrawable(chat.scam ? 0 : 1));
                     } else if (chat.verified) {
                         nameTextView[a].setRightDrawable2(getVerifiedCrossfadeDrawable(a)) ;
+                    } else if (isChatCat(chat)) {
+                        nameTextView[a].setRightDrawable(Theme.profile_verifiedCatDrawable);
                     } else if (getMessagesController().isDialogMuted(-chatId, topicId)) {
                         nameTextView[a].setRightDrawable2(getThemedDrawable(Theme.key_drawable_muteIconDrawable));
                     } else {
