@@ -6,7 +6,8 @@
     android:id="@+id/shortcut_widget_item"
     android:layout_height="wrap_content">
 
-    <ImageView android:id="@+id/feed_widget_item_image"
+    <ImageView
+        android:id="@+id/feed_widget_item_image"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginLeft="6dp"
@@ -14,7 +15,8 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp" />
 
-    <TextView android:id="@+id/feed_widget_item_text"
+    <TextView
+        android:id="@+id/feed_widget_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|top"

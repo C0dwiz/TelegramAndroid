@@ -24,7 +24,7 @@ android {
     compileSdkVersion 34
     buildToolsVersion '34.0.0'
 
-    defaultConfig.applicationId = "org.forkclient.messenger"
+    defaultConfig.applicationId = "org.fagram.messenger"
 
     sourceSets.main.jniLibs.srcDirs = ['../TMessagesProj/jni/']
 
@@ -45,7 +45,7 @@ android {
     def appSuffix = fdroid ? "" : ".beta"
     def flavorsConfig = fdroid ? "config/release" : "config/debug"
     if (fdroid) {
-        defaultConfig.applicationId = "org.forkgram.messenger"
+        defaultConfig.applicationId = "org.fagram.messenger"
     }
 
     signingConfigs {

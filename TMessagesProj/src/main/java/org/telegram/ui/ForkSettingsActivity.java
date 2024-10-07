@@ -53,7 +53,7 @@ public class ForkSettingsActivity extends BaseFragment {
         private final String option = "stickerSize";
 
         private float diff() {
-            return (float)(endStickerSize -  startStickerSize);
+            return (float)(endStickerSize - startStickerSize);
         }
 
         private float stickerSize() {
@@ -199,7 +199,7 @@ public class ForkSettingsActivity extends BaseFragment {
         super.onFragmentCreate();
 
         rowCount = 0;
-        
+
         sectionRows.add(rowCount++);
         hideSensitiveDataRow = SharedConfig.isUserOwner() ? -1 : rowCount++;
         squareAvatarsRow = rowCount++;
@@ -216,7 +216,7 @@ public class ForkSettingsActivity extends BaseFragment {
         disableThumbsInDialogList = rowCount++;
         disableGlobalSearch = rowCount++;
         customTitleRow = rowCount++;
-    
+
         emptyRows.add(rowCount++);
         sectionRows.add(rowCount++);
         disableFlipPhotos = rowCount++;
@@ -233,7 +233,7 @@ public class ForkSettingsActivity extends BaseFragment {
         largePhoto = rowCount++;
         disableSlideToNextChannel = rowCount++;
         disableRecentFilesAttachment = rowCount++;
-    
+
         emptyRows.add(rowCount++);
         sectionRows.add(rowCount++);
         inappCameraRow = rowCount++;
@@ -426,7 +426,7 @@ public class ForkSettingsActivity extends BaseFragment {
                     TextSettingsCell textCell = (TextSettingsCell) holder.itemView;
                     if (position == customTitleRow) {
                         String t = LocaleController.getString("EditAdminRank", R.string.EditAdminRank);
-                        final String v = MessagesController.getGlobalMainSettings().getString("forkCustomTitle", "Fork Client");
+                        final String v = MessagesController.getGlobalMainSettings().getString("forkCustomTitle", "FaGram");
                         textCell.setTextAndValue(t, v, false);
                     }
                     break;

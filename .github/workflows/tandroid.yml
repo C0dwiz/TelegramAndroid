@@ -1,4 +1,4 @@
-name: Fork Client
+name: FaGram Build
 
 on: [push]
 
@@ -64,7 +64,6 @@ jobs:
           sudo apt -y install ninja-build unzip pip
           ./gradlew :TMessagesProj_App:${{ matrix.afat }}
 
-          # Получение версии
           grep VERSION_NAME TMessagesProj/build/generated/source/buildConfig/${{ matrix.type }}/org/telegram/messenger/BuildConfig.java | cut -d'"' -f 2 > ver.txt
 
       - name: Find APK files
@@ -78,8 +77,8 @@ jobs:
           echo "APK found at $APK_PATH"
           mkdir -p artifact tag_asset
           mv "$APK_PATH" app.apk
-          cp app.apk "artifact/ForkClient $(cat ver.txt)${{ matrix.name }}.apk"
-          cp app.apk "tag_asset/ForkClient_$(cat ver.txt)${{ matrix.name }}.apk"
+          cp app.apk "artifact/Fagram $(cat ver.txt)${{ matrix.name }}.apk"
+          cp app.apk "tag_asset/Fagram_$(cat ver.txt)${{ matrix.name }}.apk"
 
           echo "NEW_TAG_TEXT=$(cat ver.txt)" >> $GITHUB_ENV
 
@@ -96,7 +95,7 @@ jobs:
           draft: true
           files: tag_asset/*
           tag_name: ${{ env.NEW_TAG_TEXT }}
-          name: "ForkClient ${{ env.NEW_TAG_TEXT }}"
+          name: "Fagram ${{ env.NEW_TAG_TEXT }}"
           body: "— Updated to ${{ env.NEW_OFFICIAL_TAG_TEXT }} build of the official Telegram."
 
       - uses: actions/upload-artifact@master
